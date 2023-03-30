@@ -8,6 +8,7 @@ function Grid({livros, getLivros, setOnEdit}) {
         document.getElementById('autor').value = livro.autor;
         document.getElementById('editora').value = livro.editora;
         document.getElementById('ano').value = livro.ano;
+        document.getElementById('codigo').value = livro.id;
         setOnEdit(livro);
     };
 

@@ -10,6 +10,7 @@ function Form({getLivros, onEdit}) {
             document.getElementById('autor').value = '';
             document.getElementById('editora').value = '';
             document.getElementById('ano').value = '';
+            document.getElementById('codigo').value = '';
             document.getElementById('titulo').focus();
         };
 
@@ -80,6 +81,11 @@ function Form({getLivros, onEdit}) {
                 </div>
 
                 <button type="button" onClick={() => handleCadastrarEditarLivro()}>Salvar</button>
+
+                <div>
+                    <label>Código</label>
+                    <input id="codigo" size="5" disabled />
+                </div>
             </form>
         </>    
     )
