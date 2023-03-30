@@ -1,7 +1,7 @@
 import axios from 'axios';
 import '../Components/Form.css';
 
-function Form({getLivros, onEdit}) {
+function Form({getLivros, onEdit, setOnEdit}) {
 
     const handleCadastrarEditarLivro = async () => {
 
@@ -54,6 +54,7 @@ function Form({getLivros, onEdit}) {
                     await axios.put(baseURL + '/alterar', livro)
                     .then()
                     .catch(() => alert('Erro ao Editar o Livro.'));
+                    setOnEdit([]);
                     limparCampos();
                     getLivros();
             };
