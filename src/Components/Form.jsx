@@ -30,7 +30,7 @@ function Form({getLivros, onEdit}) {
                     alert('Preencha todos os Campos !!!');
             } else {
                     await axios.post(baseURL + '/cadastrar', livro)
-                    .then(() => alert('Livro Cadastrado com Sucesso !!!'))
+                    .then()
                     .catch(() => alert('Erro ao Cadastrar o Livro.'));
                     limparCampos();
                     getLivros();
@@ -51,7 +51,7 @@ function Form({getLivros, onEdit}) {
                     alert('Preencha todos os Campos !!!');
             } else {
                     await axios.put(baseURL + '/alterar', livro)
-                    .then(() => alert('Livro Editado com Sucesso !!!'))
+                    .then()
                     .catch(() => alert('Erro ao Editar o Livro.'));
                     limparCampos();
                     getLivros();
