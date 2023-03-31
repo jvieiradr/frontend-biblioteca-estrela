@@ -2,17 +2,17 @@ import axios from 'axios';
 import '../Components/Form.css';
 
 function Form({getLivros, onEdit, setOnEdit}) {
+    const limparCampos = () => {
+        document.getElementById('titulo').value = '';
+        document.getElementById('autor').value = '';
+        document.getElementById('editora').value = '';
+        document.getElementById('ano').value = '';
+        document.getElementById('codigo').value = '';
+        setOnEdit([]);
+        document.getElementById('titulo').focus();
+    };
 
     const handleCadastrarEditarLivro = async () => {
-
-        const limparCampos = () => {
-            document.getElementById('titulo').value = '';
-            document.getElementById('autor').value = '';
-            document.getElementById('editora').value = '';
-            document.getElementById('ano').value = '';
-            document.getElementById('codigo').value = '';
-            document.getElementById('titulo').focus();
-        };
 
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
 
@@ -87,6 +87,9 @@ function Form({getLivros, onEdit, setOnEdit}) {
                     <label>Código</label>
                     <input id="codigo" size="5" disabled />
                 </div>
+
+                <button type="button" onClick={() => limparCampos()}>Limpar Campos</button>
+
             </form>
         </>    
     )

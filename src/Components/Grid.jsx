@@ -10,6 +10,7 @@ function Grid({livros, getLivros, setOnEdit}) {
         document.getElementById('ano').value = livro.ano;
         document.getElementById('codigo').value = livro.id;
         setOnEdit(livro);
+        window.scrollTo(0, 0);
     };
 
     const handleDelete = async(id) => {
@@ -29,6 +30,7 @@ function Grid({livros, getLivros, setOnEdit}) {
                     <th>Titulo</th>
                     <th>Autor</th>
                     <th>Editora</th>
+                    <th>Ano</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -36,9 +38,10 @@ function Grid({livros, getLivros, setOnEdit}) {
             <tbody>
             {livros.map((livro, i) => (
                 <tr key={i}>
-                    <td width="30%">{livro.titulo}</td>
-                    <td width="30%">{livro.autor}</td>
-                    <td width="30%">{livro.editora}</td>
+                    <td width="32%">{livro.titulo}</td>
+                    <td width="27%">{livro.autor}</td>
+                    <td width="23%">{livro.editora}</td>
+                    <td width="8%">{livro.ano}</td>
                     <td><button onClick={() => handleEditar(livro)}>Editar</button></td>
                     <td><button onClick={() => handleDelete(livro.id)}>Excluir</button></td>
                 </tr>
