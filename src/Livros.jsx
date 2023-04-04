@@ -2,7 +2,7 @@ import Form from './Components/Form.jsx';
 import Grid from './Components/Grid.jsx';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './App.css';
+import './Basico.css';
 
 function App() {
   const [livros, setLivros] = useState([]);

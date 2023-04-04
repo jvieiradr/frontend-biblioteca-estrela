@@ -1,7 +1,10 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../Components/Form.css';
 
 function Form({getLivros, onEdit, setOnEdit}) {
+    const irPara = useNavigate();
+
     const limparCampos = () => {
         document.getElementById('titulo').value = '';
         document.getElementById('autor').value = '';
@@ -88,8 +91,8 @@ function Form({getLivros, onEdit, setOnEdit}) {
                     <input id="codigo" size="5" disabled />
                 </div>
 
-                <button type="button" onClick={() => limparCampos()}>Limpar Campos</button>
-
+                <button type="button" onClick={() => limparCampos()}>Limpar</button>
+                <button type="button" onClick={() => irPara('/')}>Voltar</button>
             </form>
         </>    
     )

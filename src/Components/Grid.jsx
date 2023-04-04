@@ -2,6 +2,15 @@ import '../Components/Grid.css';
 import axios from 'axios';
 
 function Grid({livros, getLivros, setOnEdit}) {
+    const limparCampos = () => {
+        document.getElementById('titulo').value = '';
+        document.getElementById('autor').value = '';
+        document.getElementById('editora').value = '';
+        document.getElementById('ano').value = '0';
+        document.getElementById('codigo').value = '';
+        setOnEdit([]);
+        document.getElementById('titulo').focus();
+    };
 
     const handleEditar = (livro) => {
         document.getElementById('titulo').value = livro.titulo;
@@ -16,7 +25,10 @@ function Grid({livros, getLivros, setOnEdit}) {
     const handleDelete = async(id) => {
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
         await axios.delete(baseURL + '/deletar/' + id)
-            .then(() => alert('Livro Deletado com Sucesso !!!'))
+            .then(() => {
+                setTimeout(() => alert('Livro Deletado com Sucesso !!!', 3000));
+                limparCampos();
+            })
             .catch(() => alert('Erro ao Deletar o Livro.'));
         getLivros();
         document.getElementById('titulo').focus();
