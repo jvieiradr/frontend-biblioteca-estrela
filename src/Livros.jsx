@@ -10,7 +10,7 @@ function App() {
 
   const getLivros = () => {
 //    const baseURL = 'http://localhost:8800';
-    const baseURL = 'https://api-biblioteca-estrela.vercel.app/';
+    const baseURL = 'https://api-biblioteca-estrela.vercel.app/listarlivros';
 
     axios.get(baseURL)
      .then((resposta) => {

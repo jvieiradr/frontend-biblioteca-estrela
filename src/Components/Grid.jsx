@@ -24,7 +24,7 @@ function Grid({livros, getLivros, setOnEdit}) {
 
     const handleDelete = async(id) => {
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
-        await axios.delete(baseURL + '/deletar/' + id)
+        await axios.delete(baseURL + '/deletarlivro/' + id)
             .then(() => {
                 setTimeout(() => alert('Livro Deletado com Sucesso !!!', 3000));
                 limparCampos();
