@@ -9,6 +9,7 @@ const Menu = () => {
         <>
         <div className="container-menu">
             <button className="button-menu" onClick={() => irPara('/livros')}>Cadastrar Livros</button>
+            <button className="button-menu" onClick={() => irPara('/irmaos')}>Cadastrar Irmãos</button>
         </div>
         </>
     )

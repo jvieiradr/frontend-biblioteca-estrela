@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Basico.css';
 
-function App() {
+function Livros() {
   const [livros, setLivros] = useState([]);
   const [onEdit, setOnEdit] = useState([]);
 
@@ -31,4 +31,4 @@ function App() {
   )
 };
 
-export default App;
+export default Livros;
