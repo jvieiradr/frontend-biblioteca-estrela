@@ -2,15 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Basico.css';
+import './Utils.jsx';
+import { mascaraTelefone } from './Utils.jsx';
 
 function Irmaos() {
+    const [irmaos, setIrmaos] = useState([]);
     const [onEdit, setOnEdit] = useState(false);
+
+    const listarIrmaos = () => {
+        //    const baseURL = 'http://localhost:8800';
+        const baseURL = 'https://api-biblioteca-estrela.vercel.app/listarirmaos';
+        
+        axios.get(baseURL)
+            .then((resposta) => {
+                setIrmaos(resposta.data)
+                })
+            .catch(() => console.log('Erro ao Consultar os Irmãos.'))
+    };
+        
+    useEffect(() => {
+        listarIrmaos();
+    });
 
     const limparCampos = () => {
         document.getElementById('nome').value = '';
         document.getElementById('email').value = '';
         document.getElementById('telefone').value = '';
-        document.getElementById('loja').value = '';
+        document.getElementById('loja').value = 'Estrela Noroeste do Brasil';
         document.getElementById('codigo').value = '';
         document.getElementById('nome').focus();
         setOnEdit(false);
@@ -22,15 +40,40 @@ function Irmaos() {
         if (!onEdit) {
             CadastrarIrmao();
         } else {
-            alert('Alterar');
+            AlterarIrmao();
         };
     };
 
-    const handleAlterarIrmao = () => {
+    const handleAlterarIrmao = (irmao) => {
+        document.getElementById('nome').value = irmao.nome;
+        document.getElementById('email').value = irmao.email;
+        document.getElementById('telefone').value = irmao.telefone;
+        document.getElementById('loja').value = irmao.loja;
+        document.getElementById('codigo').value = irmao.id;
+        document.getElementById('nome').focus();
         setOnEdit(true);
+        window.scrollTo(0, 0);
     };
 
-    const CadastrarIrmao = () => {
+    const AlterarIrmao = async () => {
+        const irmaoAlterado = {
+            nome: document.getElementById('nome').value,
+            email: document.getElementById('email').value,
+            telefone: document.getElementById('telefone').value,
+            loja: document.getElementById('loja').value,
+            id: document.getElementById('codigo').value
+        };
+
+        const baseURL = 'https://api-biblioteca-estrela.vercel.app';
+        await axios.put(baseURL + '/alterarirmao', irmaoAlterado)
+            .then()
+            .catch(() => alert('Erro ao Alterar o Irmão.'));
+        setOnEdit([]);
+        listarIrmaos();
+        limparCampos();
+    };
+
+    const CadastrarIrmao = async () => {
         const novoIrmao = {
             nome: document.getElementById('nome').value,
             email: document.getElementById('email').value,
@@ -39,15 +82,21 @@ function Irmaos() {
         };
 
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
-        axios.post(baseURL + '/cadastrarirmao', novoIrmao)
+        await axios.post(baseURL + '/cadastrarirmao', novoIrmao)
             .then()
             .catch(() => alert('Erro ao Cadastrar o Irmão.'));
         limparCampos();
     };
 
-    const ApagarIrmao = () => {
-        const id = document.getElementById('codigo').value;
-        alert(id);
+    const ApagarIrmao = async (id) => {
+        const baseURL = 'https://api-biblioteca-estrela.vercel.app';
+        await axios.delete(baseURL + '/deletarirmao/' + id)
+            .then(() => {
+                setTimeout(() => alert('Irmão Deletado com Sucesso !!!', 3000));
+            })
+            .catch(() => alert('Erro ao Deletar o Irmão.'));
+        listarIrmaos();
+        limparCampos();
     };
 
     return (
@@ -64,11 +113,11 @@ function Irmaos() {
                 </div>
                 <div>
                     <label>Telefone</label>
-                    <input id="telefone" size="15" />
+                    <input id="telefone" size="15" onChange={() => mascaraTelefone()}/>
                 </div>
                 <div>
                     <label>Loja</label>
-                    <input id="loja" size="40" />
+                    <input id="loja" size="40" defaultValue="Estrela Noroeste do Brasil" />
                 </div>
 
                 <button type="button" onClick={() => handleCadastrarAlterarIrmao()}>Salvar</button>
@@ -95,14 +144,15 @@ function Irmaos() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td width="32%"></td>
-                        <td width="27%"></td>
-                        <td width="23%"></td>
-                        <td width="8%"></td>
-                        <td><button onClick={() => handleAlterarIrmao()}>Editar</button></td>
-                        <td><button onClick={() => ApagarIrmao()}>Excluir</button></td>
+                {irmaos.map((irmao, i) => (
+                    <tr key={i}>
+                        <td width="35%">{irmao.nome}</td>
+                        <td width="35%">{irmao.email}</td>
+                        <td width="35%">{irmao.telefone}</td>
+                        <td><button onClick={() => handleAlterarIrmao(irmao)}>Editar</button></td>
+                        <td><button onClick={() => ApagarIrmao(irmao.id)}>Excluir</button></td>
                     </tr>
+                ))}    
                 </tbody>
             </table>
         </div>
