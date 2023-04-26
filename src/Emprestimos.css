@@ -1,0 +1,56 @@
+.container-emprestimos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0px 0px 5px #ccc;
+    border-radius: 5px;
+}
+
+.itens-emprestimo {
+    margin: 0 0 10px 0;
+    flex-direction: row;
+    align-items: center;
+    border: solid 1px;
+    padding: 0 0 10px 10px;
+    font-size: 18px;
+}
+
+.irmao-livro-emprestimo {
+    padding-right: 10px;
+}
+
+.datas-emprestimo {
+    margin: 0 0 10px 0;
+    flex-direction: row;
+    align-items: center;
+    border: solid 1px;
+    padding: 0 0 10px 10px;
+}
+
+.itens-datas-emprestimo {
+    padding-right: 10px;
+}
+
+.botoes-controle-emprestimo {
+    margin: 0 0 10px 0;
+    flex-direction: row;
+    justify-content: flex-end;
+    border: solid 1px;
+    padding: 0 0 10px 10px;
+}
+
+.botao-controle {
+    margin: 10px 10px 0 0;
+}
+
+.avisos {
+    margin: 0;
+    text-align: center;
+    border: solid 1px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px;
+}

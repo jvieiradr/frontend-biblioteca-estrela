@@ -15,3 +15,11 @@ export const mascaraTelefone = () => {
     document.getElementById('telefone').value = v
     return
 };
+
+export const formataDataInvertida = (data) => {
+    var mm = (data.getMonth() + 1).toString().padStart(2, '0');
+    var dd = data.getDate().toString().padStart(2, '0');
+    var aaaa = data.getFullYear();
+
+    return aaaa + '-' + mm + '-' + dd;
+};
