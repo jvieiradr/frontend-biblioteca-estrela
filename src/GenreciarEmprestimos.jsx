@@ -21,7 +21,7 @@ const emprestarLivro = async (id) => {
     await axios.put(baseURL, {id})
         .then()
         .catch(() => alert ('Erro ao Emprestar o Livro.'));
-    window.location.reload(false); 
+    window.location.reload(true); 
 };
 
 const devolverLivro = async (id) => {
@@ -30,7 +30,7 @@ const devolverLivro = async (id) => {
     await axios.put(baseURL, {id})
         .then()
         .catch(() => alert ('Erro ao Devolver o Livro.'));
-    window.location.reload(false); 
+    window.location.reload(true); 
 };
 
 const GerenciarEmprestimos = () => {
@@ -57,7 +57,7 @@ const GerenciarEmprestimos = () => {
         await axios.delete(baseURL + '/deletaremprestimo/' + id)
             .then()
             .catch(() => alert ('Erro ao Deletar o Emprestimo'));
-        window.location.reload(false);
+        window.location.reload(true);
     };
 
     return(
