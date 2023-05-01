@@ -10,7 +10,6 @@ function Irmaos() {
     const [onEdit, setOnEdit] = useState(false);
 
     const listarIrmaos = () => {
-        //    const baseURL = 'http://localhost:8800';
         const baseURL = 'https://api-biblioteca-estrela.vercel.app/listarirmaos';
         
         axios.get(baseURL)

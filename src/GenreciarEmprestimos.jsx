@@ -3,41 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const ChkLivroDevolvido = ({id}) => {
-    return(
-        <input type="checkbox" id="chkdevolvido" className="chkdevolvido" onClick={() => emprestarLivro(id)} defaultChecked />
-    )
-};
-
-const ChkLivroEmprestado = ({id}) => {
-    return(
-        <input type="checkbox" id="chkdevolvido" className="chkdevolvido" onClick={() => devolverLivro(id)} />
-    )
-};
-
-const emprestarLivro = async (id) => {
-    const baseURL = 'https://api-biblioteca-estrela.vercel.app/emprestarlivro';
-
-    await axios.put(baseURL, {id})
-        .then()
-        .catch(() => alert ('Erro ao Emprestar o Livro.'));
-    window.location.reload(true); 
-};
-
-const devolverLivro = async (id) => {
-    const baseURL = 'https://api-biblioteca-estrela.vercel.app/devolverlivro';
-
-    await axios.put(baseURL, {id})
-        .then()
-        .catch(() => alert ('Erro ao Devolver o Livro.'));
-    window.location.reload(true); 
-};
-
 const GerenciarEmprestimos = () => {
     const [emprestimos, setEmprestimos] = useState([]);
     const irPara = useNavigate();
 
-    const listarEmprestimos = () => {
+    useEffect(() => {
+        ListarEmprestimos();
+    });
+
+    const ListarEmprestimos = () => {
         const baseURL = 'https://api-biblioteca-estrela.vercel.app/listaremprestimos';
         
         axios.get(baseURL)
@@ -47,17 +21,31 @@ const GerenciarEmprestimos = () => {
             .catch(() => alert ('Erro ao Listar os Emprestimos.'));
     };
 
-    useEffect(() => {
-        listarEmprestimos();
-    });
-
     const DeletarEmprestimo = async (id) => {
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
 
         await axios.delete(baseURL + '/deletaremprestimo/' + id)
             .then()
             .catch(() => alert ('Erro ao Deletar o Emprestimo'));
-        window.location.reload(true);
+        setEmprestimos([]);
+    };
+
+    const emprestarLivro = async (id) => {
+        const baseURL = 'https://api-biblioteca-estrela.vercel.app/emprestarlivro';
+    
+        await axios.put(baseURL, {id})
+            .then()
+            .catch(() => alert ('Erro ao Emprestar o Livro.'));
+        setEmprestimos([]);
+    };
+
+    const devolverLivro = async (id) => {
+        const baseURL = 'https://api-biblioteca-estrela.vercel.app/devolverlivro';
+    
+        await axios.put(baseURL, {id})
+            .then()
+            .catch(() => alert ('Erro ao Devolver o Livro.'));
+        setEmprestimos([]);
     };
 
     return(
@@ -81,8 +69,8 @@ const GerenciarEmprestimos = () => {
                             <td width="100px">{emprestimo.data_emprestimo}</td>
                             <td width="100px">{emprestimo.data_devolucao}</td>
                             <td width="90px"className="td-emprestimos">
-                                {emprestimo.devolvido == 0 && <ChkLivroEmprestado id={emprestimo.id} />}
-                                {emprestimo.devolvido == 1 && <ChkLivroDevolvido id={emprestimo.id} />}
+                                {emprestimo.devolvido == 0 && <input type="checkbox" id="chkdevolvido" className="chkdevolvido" onClick={() => devolverLivro(emprestimo.id)} />}
+                                {emprestimo.devolvido == 1 && <input type="checkbox" id="chkdevolvido" className="chkdevolvido" defaultChecked onClick={() => emprestarLivro(emprestimo.id)} />}
                             </td>
                             <td><button onClick={() => DeletarEmprestimo(emprestimo.id)}>Excluir</button></td>
                         </tr>
