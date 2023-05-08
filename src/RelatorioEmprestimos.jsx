@@ -70,8 +70,7 @@ export const RelatorioEmprestimos = () => {
                         numeroEmprestimosPagina = 1;
                     };
                 };
-                location.reload(false);
-                window.open(doc.output('bloburl'));
+                window.open(doc.output('bloburl'), '_self');
             })
             .catch(() => console.log('Erro ao Listar os Empréstimos'));
     };
