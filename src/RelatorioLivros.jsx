@@ -64,7 +64,7 @@ export const RelatorioLivros = () => {
                         numeroLivroPagina = 1;
                     };
                 };
-                location.reload(false);
+                location.reload(true);
                 window.open(doc.output('bloburl'), '_self');
             })
             .catch(() => console.log('Erro ao Listar os Livros'));
