@@ -1,11 +1,7 @@
 import jsPDF from 'jspdf';
 import axios from 'axios';
 
-var doc = new jsPDF({ 
-    orientation: "p",
-    unit: "px",
-    format: "a4"
-});
+var doc = '';
 
 export const RelatorioEmprestimos = () => {
     const listaEmprestimos = async () => {
@@ -38,6 +34,11 @@ export const RelatorioEmprestimos = () => {
 
         await axios.get(baseURL)
             .then((resposta) => {
+                doc = new jsPDF({ 
+                    orientation: "p",
+                    unit: "px",
+                    format: "a4"
+                });
                 cabecalho();
                 var quantidadeEmprestimosTotal = (resposta.data.length);
                 var quantidadeEmprestimosPagina = 56;
@@ -70,7 +71,6 @@ export const RelatorioEmprestimos = () => {
                         numeroEmprestimosPagina = 1;
                     };
                 };
-                location.reload();
                 window.open(doc.output('bloburl'), '_self');
             })
             .catch(() => console.log('Erro ao Listar os Empréstimos'));

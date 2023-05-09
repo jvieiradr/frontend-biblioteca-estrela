@@ -1,11 +1,7 @@
 import jsPDF from 'jspdf';
 import axios from 'axios';
 
-var doc = new jsPDF({ 
-    orientation: "p",
-    unit: "px",
-    format: "a4"
-});
+var doc = '';
 
 export const RelatorioIrmaos = () => {
     const listaIrmaos = async () => {
@@ -36,6 +32,12 @@ export const RelatorioIrmaos = () => {
 
         await axios.get(baseURL)
             .then((resposta) => {
+                doc = new jsPDF({ 
+                    orientation: "p",
+                    unit: "px",
+                    format: "a4"
+                });
+                
                 cabecalho();
                 var quantidadeIrmaosTotal = (resposta.data.length);
                 var quantidadeIrmaosPagina = 56;
@@ -66,7 +68,6 @@ export const RelatorioIrmaos = () => {
                         numeroIrmaoPagina = 1;
                     };
                 };
-                location.reload();
                 window.open(doc.output('bloburl'), '_self');
             })
             .catch(() => console.log('Erro ao Listar os Irmãos'));
