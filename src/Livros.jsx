@@ -25,8 +25,8 @@ function Livros() {
 
   return (
     <div>
-      <Form getLivros={getLivros} onEdit={onEdit} setOnEdit={setOnEdit}/>
-      <Grid livros={livros} getLivros={getLivros} onEdit={onEdit} setOnEdit={setOnEdit}/>
+      <Form getLivros={getLivros} setLivros={setLivros} onEdit={onEdit} setOnEdit={setOnEdit}/>
+      <Grid livros={livros} getLivros={getLivros} setLivros = {setLivros} onEdit={onEdit} setOnEdit={setOnEdit}/>
     </div>
   )
 };

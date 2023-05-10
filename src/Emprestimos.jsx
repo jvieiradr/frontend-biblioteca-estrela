@@ -34,13 +34,17 @@ const Emprestimos = () => {
         };
 
         var avisos = document.getElementById('avisos');
-
-        await axios.post (baseURL, novoEmprestimo)
-            .then(() => {
-                avisos.innerHTML = "<h3 style='color: green'>Emprestimo Cadastrado com Sucesso</h3>"
-            })
-            .catch(() => avisos.innerHTML = "<h3 style='color: red'>Erro ao Cadastrar o Empréstimo</h3>");
-        setTimeout(() => limparCampos(), 3000);    
+        if(!novoEmprestimo.nomeIrmao ||
+           !novoEmprestimo.tituloLivro) {
+                avisos.innerHTML = "<h3 style='color: red'>Preencha Todos os Campos !!!</h3>"
+           } else {
+                await axios.post (baseURL, novoEmprestimo)
+                    .then(() => {
+                        avisos.innerHTML = "<h3 style='color: green'>Emprestimo Cadastrado com Sucesso</h3>"
+                    })
+                    .catch(() => avisos.innerHTML = "<h3 style='color: red'>Erro ao Cadastrar o Empréstimo</h3>");
+            };
+        setTimeout(() => limparCampos(), 2000);    
     };
 
     const limparCampos = () => {

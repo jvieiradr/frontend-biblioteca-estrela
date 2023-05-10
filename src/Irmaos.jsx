@@ -31,6 +31,7 @@ function Irmaos() {
         document.getElementById('codigo').value = '';
         document.getElementById('nome').focus();
         setOnEdit(false);
+        setIrmaos([]);
     };
 
     const irPara = useNavigate();
@@ -68,7 +69,6 @@ function Irmaos() {
             .then()
             .catch(() => alert('Erro ao Alterar o Irmão.'));
         setOnEdit([]);
-        listarIrmaos();
         limparCampos();
     };
 
@@ -80,11 +80,16 @@ function Irmaos() {
             loja: document.getElementById('loja').value
         };
 
-        const baseURL = 'https://api-biblioteca-estrela.vercel.app';
-        await axios.post(baseURL + '/cadastrarirmao', novoIrmao)
-            .then()
-            .catch(() => alert('Erro ao Cadastrar o Irmão.'));
+        if(!novoIrmao.nome) {
+            alert('O Campo Nome é de Preenchimento Obrigatório');
+            document.getElementById('nome').focus();
+        } else {
+            const baseURL = 'https://api-biblioteca-estrela.vercel.app';
+            await axios.post(baseURL + '/cadastrarirmao', novoIrmao)
+                .then()
+                .catch(() => alert('Erro ao Cadastrar o Irmão.'));
         limparCampos();
+        };
     };
 
     const ApagarIrmao = async (id) => {
@@ -94,7 +99,6 @@ function Irmaos() {
                 setTimeout(() => alert('Irmão Deletado com Sucesso !!!', 3000));
             })
             .catch(() => alert('Erro ao Deletar o Irmão.'));
-        listarIrmaos();
         limparCampos();
     };
 

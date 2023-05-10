@@ -1,15 +1,16 @@
 import '../Components/Grid.css';
 import axios from 'axios';
 
-function Grid({livros, getLivros, setOnEdit}) {
+function Grid({livros, setLivros, setOnEdit}) {
     const limparCampos = () => {
         document.getElementById('titulo').value = '';
         document.getElementById('autor').value = '';
         document.getElementById('editora').value = '';
         document.getElementById('ano').value = '0';
         document.getElementById('codigo').value = '';
-        setOnEdit([]);
         document.getElementById('titulo').focus();
+        setOnEdit([]);
+        setLivros([]);
     };
 
     const handleEditar = (livro) => {
@@ -26,12 +27,10 @@ function Grid({livros, getLivros, setOnEdit}) {
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
         await axios.delete(baseURL + '/deletarlivro/' + id)
             .then(() => {
-                setTimeout(() => alert('Livro Deletado com Sucesso !!!', 3000));
+                setTimeout(() => alert('Livro Deletado com Sucesso !!!', 2000));
                 limparCampos();
             })
             .catch(() => alert('Erro ao Deletar o Livro.'));
-        getLivros();
-        document.getElementById('titulo').focus();
     };
 
     return (
@@ -42,7 +41,7 @@ function Grid({livros, getLivros, setOnEdit}) {
                     <th>Titulo</th>
                     <th>Autor</th>
                     <th>Editora</th>
-                    <th>Ano</th>
+                    <th width="8%" className="td-ano">Ano</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -52,8 +51,8 @@ function Grid({livros, getLivros, setOnEdit}) {
                 <tr key={i}>
                     <td width="32%">{livro.titulo}</td>
                     <td width="27%">{livro.autor}</td>
-                    <td width="23%">{livro.editora}</td>
-                    <td width="8%">{livro.ano}</td>
+                    <td width="24%">{livro.editora}</td>
+                    <td width="8%" className="td-ano">{livro.ano}</td>
                     <td><button onClick={() => handleEditar(livro)}>Editar</button></td>
                     <td><button onClick={() => handleDelete(livro.id)}>Excluir</button></td>
                 </tr>

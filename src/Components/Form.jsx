@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../Components/Form.css';
 
-function Form({getLivros, onEdit, setOnEdit}) {
+function Form({getLivros, setLivros, onEdit, setOnEdit}) {
     const irPara = useNavigate();
 
     const limparCampos = () => {
@@ -11,12 +11,12 @@ function Form({getLivros, onEdit, setOnEdit}) {
         document.getElementById('editora').value = '';
         document.getElementById('ano').value = '0';
         document.getElementById('codigo').value = '';
-        setOnEdit([]);
         document.getElementById('titulo').focus();
+        setOnEdit([]);
+        setLivros([]);
     };
 
     const handleCadastrarEditarLivro = async () => {
-
         const baseURL = 'https://api-biblioteca-estrela.vercel.app';
 
         if (onEdit.length === 0) {
@@ -32,12 +32,12 @@ function Form({getLivros, onEdit, setOnEdit}) {
                 !livro.editora ||
                 !livro.ano) {
                     alert('Preencha todos os Campos !!!');
+                    document.getElementById('titulo').focus();
             } else {
                     await axios.post(baseURL + '/cadastrarlivro', livro)
-                    .then()
-                    .catch(() => alert('Erro ao Cadastrar o Livro.'));
+                        .then()
+                        .catch(() => alert('Erro ao Cadastrar o Livro.'));
                     limparCampos();
-                    getLivros();
             };
         } else {
             const livro = {
@@ -53,13 +53,13 @@ function Form({getLivros, onEdit, setOnEdit}) {
                 !livro.editora ||
                 !livro.ano) {
                     alert('Preencha todos os Campos !!!');
+                    document.getElementById('titulo').focus();
             } else {
                     await axios.put(baseURL + '/alterarlivro', livro)
                     .then()
                     .catch(() => alert('Erro ao Editar o Livro.'));
                     setOnEdit([]);
                     limparCampos();
-                    getLivros();
             };
         }    
     ;}
